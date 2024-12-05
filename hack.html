@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gand Marale</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+            color: white;
+            font-size: 2em;
+            overflow: hidden;
+        }
+        #image {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="text">Bhai ruk...</div>
+    <img id="image" src="https://cdn.discordapp.com/emojis/963044455466803240.png" alt="Image">
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('text').style.display = 'none';
+            document.getElementById('image').style.display = 'block';
+        }, 2000); // 2-second delay
+    </script>
+</body>
+</html>
