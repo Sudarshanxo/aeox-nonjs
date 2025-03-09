@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aeox.tech | Coming Soon</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+          --main-color: #ff0066;
+          --background-color: #050510;
+          --text-color: #ffffff;
+          --accent-color: #00eeff;
+          --dark-accent: #101025;
+          --transition-speed: 0.3s;
+        }
+
+        /* General Styling */
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+        }
+
+        html {
+          scroll-behavior: smooth;
+        }
+
+        body {
+          font-family: 'Inter', sans-serif;
+          background: var(--background-color);
+          color: var(--text-color);
+          overflow-x: hidden;
+          line-height: 1.6;
+          height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        /* Preloader */
+        .preloader {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: var(--background-color);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 9999;
+          transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.loaded {
+          opacity: 0;
+          visibility: hidden;
+        }
+
+        .loader {
+          width: 50px;
+          height: 50px;
+          border: 3px solid transparent;
+          border-top-color: var(--main-color);
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+
+        /* Custom Cursor */
+        .cursor {
+          position: fixed;
+          width: 10px;
+          height: 10px;
+          background-color: var(--main-color);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          transform: translate(-50%, -50%);
+          transition: transform 0.1s ease;
+        }
+
+        .cursor-follower {
+          position: fixed;
+          width: 30px;
+          height: 30px;
+          border: 2px solid var(--main-color);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9998;
+          transform: translate(-50%, -50%);
+          transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        /* Particles Container */
+        .particles-container {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: 0;
+        }
+
+        /* Main Content */
+        .container {
+          width: 90%;
+          max-width: 1200px;
+          margin: 0 auto;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          flex: 1;
+          z-index: 1;
+          position: relative;
+        }
+
+        .logo-area {
+          margin-bottom: 2rem;
+        }
+
+        .logo {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 3.5rem;
+          color: var(--main-color);
+          text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color);
+          animation: neonGlow 1.5s infinite alternate;
+        }
+
+        .tech {
+          color: var(--text-color);
+          font-size: 2.5rem;
+          text-shadow: none;
+        }
+
+        .hero-content {
+          text-align: center;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin: 2rem 0;
+        }
+
+        .tagline {
+          margin-bottom: 2rem;
+        }
+
+        .coming-soon {
+          font-family: 'Orbitron', sans-serif;
+          font-size: 2.5rem;
+          margin-bottom: 1rem;
+          animation: fadeInUp 1s ease;
+        }
+
+        .description {
+          font-size: 1.2rem;
+          color: #e0e0e0;
+          max-width: 600px;
+          margin: 0 auto;
+          animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .features {
+          display: flex;
+          justify-content: center;
+          gap: 2rem;
+          margin: 2rem 0;
+          flex-wrap: wrap;
+        }
+
+        .feature {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 1.5rem;
+          background: rgba(16, 16, 37, 0.5);
+          border-radius: 10px;
+          border: 1px solid rgba(255, 0, 102, 0.3);
+          transition: all 0.3s ease;
+          animation: fadeInUp 1s ease both;
+          width: 150px;
+        }
+
+        .feature:nth-child(1) {
+          animation-delay: 0.3s;
+        }
+
+        .feature:nth-child(2) {
+          animation-delay: 0.5s;
+        }
+
+        .feature:nth-child(3) {
+          animation-delay: 0.7s;
+        }
+
+        .feature:hover {
+          transform: translateY(-10px);
+          border-color: var(--main-color);
+          box-shadow: 0 10px 20px rgba(255, 0, 102, 0.2);
+        }
+
+        .feature i {
+          font-size: 2rem;
+          color: var(--main-color);
+        }
+
+        .cta {
+          margin-top: 2rem;
+          width: 100%;
+          max-width: 500px;
+          animation: fadeInUp 1s ease 0.9s both;
+        }
+
+        form {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        input[type="email"] {
+          flex: 1;
+          padding: 12px 15px;
+          border-radius: 5px;
+          border: none;
+          background: rgba(255, 255, 255, 0.08);
+          color: var(--text-color);
+          font-family: 'Inter', sans-serif;
+        }
+
+        button {
+          padding: 12px 25px;
+          border-radius: 5px;
+          border: none;
+          background: var(--main-color);
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        button:hover {
+          background: var(--accent-color);
+          transform: translateY(-3px);
+          box-shadow: 0 5px 15px rgba(0, 238, 255, 0.3);
+        }
+
+        /* Ticker */
+        .stock-ticker {
+          width: 100%;
+          background: rgba(16, 16, 37, 0.5);
+          overflow: hidden;
+          height: 40px;
+          position: relative;
+          margin-top: 2rem;
+        }
+
+        .ticker-wrap {
+          width: 100%;
+          padding-left: 100%;
+          height: 40px;
+        }
+
+        .ticker {
+          display: inline-block;
+          height: 40px;
+          line-height: 40px;
+          white-space: nowrap;
+          animation: ticker 25s linear infinite;
+        }
+
+        .ticker-item {
+          display: inline-block;
+          padding: 0 20px;
+          font-size: 0.9rem;
+          color: #e0e0e0;
+        }
+
+        .up {
+          color: #00ff88;
+        }
+
+        .down {
+          color: #ff3366;
+        }
+
+        @keyframes ticker {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-100%, 0, 0); }
+        }
+
+        /* Footer */
+        footer {
+          margin-top: auto;
+          padding: 2rem 0;
+          text-align: center;
+          position: relative;
+          z-index: 1;
+        }
+
+        .social {
+          display: flex;
+          justify-content: center;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .social-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.05);
+          color: var(--main-color);
+          transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+          background: var(--main-color);
+          color: var(--background-color);
+          transform: translateY(-5px);
+        }
+
+        .copyright {
+          font-size: 0.9rem;
+          color: #777;
+        }
+
+        /* Animations */
+        @keyframes neonGlow {
+          from { text-shadow: 0 0 10px var(--main-color), 0 0 20px var(--main-color); }
+          to { text-shadow: 0 0 20px var(--main-color), 0 0 30px var(--main-color), 0 0 40px var(--main-color); }
+        }
+
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+          .features {
+            gap: 1rem;
+          }
+
+          .feature {
+            width: 130px;
+            padding: 1rem;
+          }
+
+          .logo {
+            font-size: 2.5rem;
+          }
+
+          .tech {
+            font-size: 1.8rem;
+          }
+
+          .coming-soon {
+            font-size: 2rem;
+          }
+
+          form {
+            flex-direction: column;
+          }
+
+          button {
+            width: 100%;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .features {
+            flex-direction: column;
+            align-items: center;
+          }
+
+          .feature {
+            width: 200px;
+          }
+        }
+
+        /* Status message */
+        .status-message {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            z-index: 1000;
+            display: none;
+        }
+
+        .status-message.success {
+            background-color: rgba(0, 200, 0, 0.7);
+        }
+
+        .status-message.error {
+            background-color: rgba(200, 0, 0, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <div class="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+
+    <div class="particles-container" id="particles-js"></div>
+
+    <main class="container">
+        <div class="logo-area">
+            <h1 class="logo">Aeox<span class="tech">.tech</span></h1>
+        </div>
+
+        <div class="hero-content">
+            <div class="tagline">
+                <h2 class="coming-soon">Coming Soon</h2>
+                <p class="description"> India's not first AI-powered stock analysis platform</p>
+            </div>
+
+            <div class="features">
+                <div class="feature">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Market Analysis</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-newspaper"></i>
+                    <span>News Impact</span>
+                </div>
+                <div class="feature">
+                    <i class="fas fa-brain"></i>
+                    <span>Good Predictions</span>
+                </div>
+            </div>
+
+        <div class="stock-ticker">
+            <div class="ticker-wrap">
+                <div class="ticker">
+                    <div class="ticker-item">THIS <span class="up">▲ 0.69%</span></div>
+                    <div class="ticker-item">IS <span class="up">▲ 69.69%</span></div>
+                    <div class="ticker-item">BETA <span class="down">▼ 420.69%</span></div>
+                    <div class="ticker-item">VERSION <span class="up">▲ 77.7%</span></div>
+                    <div class="ticker-item">HEHE <span class="up">▲ 6.66%</span></div>
+                    <div class="ticker-item">SOON <span class="down">▼ 10.8%</span></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="social">
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-telegram"></i></a>
+        </div>
+        <p class="copyright">© 2025 Aeox.tech | Created in India, for India</p>
+    </footer>
+
+    <div id="statusMessage" class="status-message"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+
+    <script>
+        // Main functionality in single script tag
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize components
+            initPreloader();
+            initParticles();
+            initCursor();
+            initLiveStockTicker();
+            initEmailForm();
+        });
+
+        // Preloader handling
+        function initPreloader() {
+            const visitedBefore = getCookie('aeox_visited');
+            const preloader = document.querySelector('.preloader');
+
+            if (visitedBefore) {
+                preloader.classList.add('loaded');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    preloader.classList.add('loaded');
+                    setTimeout(() => {
+                        preloader.style.display = 'none';
+                    }, 500);
+                    setCookie('aeox_visited', 'true', 30);
+                }, 1500);
+            }
+        }
+
+        // Initialize particles background
+        function initParticles() {
+            if (document.getElementById('particles-js') && typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": {
+                            "value": 50, 
+                            "density": {
+                                "enable": true,
+                                "value_area": 800
+                            }
+                        },
+                        "color": {
+                            "value": "#ff0066"
+                        },
+                        "shape": {
+                            "type": "circle",
+                            "stroke": {
+                                "width": 0,
+                                "color": "#000000"
+                            }
+                        },
+                        "opacity": {
+                            "value": 0.5,
+                            "random": true,
+                            "anim": {
+                                "enable": false,
+                                "speed": 1
+                            }
+                        },
+                        "size": {
+                            "value": 3,
+                            "random": true
+                        },
+                        "line_linked": {
+                            "enable": true,
+                            "distance": 150,
+                            "color": "#ff0066",
+                            "opacity": 0.4,
+                            "width": 1
+                        },
+                        "move": {
+                            "enable": true,
+                            "speed": 2, 
+                            "direction": "none",
+                            "random": false,
+                            "straight": false,
+                            "out_mode": "out",
+                            "bounce": false
+                        }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": {
+                            "onhover": {
+                                "enable": true,
+                                "mode": "grab"
+                            },
+                            "onclick": {
+                                "enable": true,
+                                "mode": "push"
+                            },
+                            "resize": true
+                        },
+                        "modes": {
+                            "grab": {
+                                "distance": 140,
+                                "line_linked": {
+                                    "opacity": 1
+                                }
+                            },
+                            "push": {
+                                "particles_nb": 3 
+                            }
+                        }
+                    },
+                    "retina_detect": true
+                });
+            }
+        }
+
+        // Custom cursor
+        function initCursor() {
+            const cursor = document.querySelector('.cursor');
+            const cursorFollower = document.querySelector('.cursor-follower');
+
+            if (!cursor || !cursorFollower) return;
+
+            const moveCursor = (e) => {
+                requestAnimationFrame(() => {
+                    cursor.style.left = `${e.clientX}px`;
+                    cursor.style.top = `${e.clientY}px`;
+
+                    setTimeout(() => {
+                        cursorFollower.style.left = `${e.clientX}px`;
+                        cursorFollower.style.top = `${e.clientY}px`;
+                    }, 70);
+                });
+            };
+
+            document.addEventListener('mousemove', moveCursor);
+
+            // Cursor effects on interactive elements
+            const interactiveElements = document.querySelectorAll('a, button, input, .feature');
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    cursorFollower.style.opacity = '0.5';
+                });
+
+                element.addEventListener('mouseleave', () => {
+                    cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    cursorFollower.style.opacity = '1';
+                });
+            });
+        }
+
+        // Live stock ticker with demo data
+        function initLiveStockTicker() {
+            const tickerContainer = document.querySelector('.ticker');
+            if (!tickerContainer) return;
+
+            // Demo data is already in HTML, but we could update it randomly
+            setInterval(() => {
+                const tickerItems = tickerContainer.querySelectorAll('.ticker-item');
+                tickerItems.forEach(item => {
+                    // Generate random price change between -2% and +2%
+                    const priceChange = (Math.random() * 4 - 2).toFixed(2);
+                    const isUp = parseFloat(priceChange) >= 0;
+
+                    const symbolName = item.textContent.split(' ')[0];
+                    item.innerHTML = `${symbolName} <span class="${isUp ? 'up' : 'down'}">${isUp ? '▲' : '▼'} ${Math.abs(priceChange)}%</span>`;
+                });
+            }, 30000); // Update every 30 seconds
+        }
+
+        // Email subscription form
+        function initEmailForm() {
+            const notifyForm = document.getElementById('notifyForm');
+            const statusMessage = document.getElementById('statusMessage');
+
+            if (!notifyForm || !statusMessage) return;
+
+            notifyForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = notifyForm.querySelector('input[type="email"]');
+                const emailValue = emailInput.value.trim();
+
+                if (emailValue) {
+                    // Store in localStorage (client-side only solution)
+                    try {
+                        // Get existing emails from localStorage
+                        let emails = [];
+                        const storedEmails = localStorage.getItem('aeox_emails');
+                        if (storedEmails) {
+                            emails = JSON.parse(storedEmails);
+                        }
+
+                        // Add new email with timestamp
+                        emails.push({
+                            email: emailValue,
+                            timestamp: new Date().toISOString()
+                        });
+
+                        // Save back to localStorage
+                        localStorage.setItem('aeox_emails', JSON.stringify(emails));
+
+                        // Show success message
+                        showStatusMessage('Thank you! I will notify you when Aeox.tech launches.', 'success');
+                        notifyForm.reset();
+                    } catch (error) {
+                        showStatusMessage('There was an error saving your email. Please try again.', 'error');
+                        console.error('Error saving email:', error);
+                    }
+                }
+            });
+        }
+
+        // Helper function to show status messages
+        function showStatusMessage(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            if (!statusMessage) return;
+
+            statusMessage.textContent = message;
+            statusMessage.className = 'status-message';
+            statusMessage.classList.add(type);
+            statusMessage.style.display = 'block';
+
+            setTimeout(() => {
+                statusMessage.style.display = 'none';
+            }, 3000);
+        }
+
+        // Cookie utilities
+        function setCookie(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            const nameEQ = name + "=";
+            const ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+    </script>
+</body>
+</html>
