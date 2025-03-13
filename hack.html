@@ -18,11 +18,21 @@
             font-size: 2em;
             overflow: hidden;
         }
+        #text {
+            text-align: center;
+        }
         #image {
             display: none;
             width: 100vw;
             height: 100vh;
-            object-fit: cover;
+            object-fit: contain; /* Ensures full visibility while maintaining aspect ratio */
+            transition: opacity 1s ease-in-out;
+        }
+        /* Additional styling for different devices */
+        @media (max-width: 768px) {
+            #image {
+                object-fit: cover; /* Covers mobile screens more naturally */
+            }
         }
     </style>
 </head>
@@ -33,7 +43,9 @@
     <script>
         setTimeout(() => {
             document.getElementById('text').style.display = 'none';
-            document.getElementById('image').style.display = 'block';
+            let image = document.getElementById('image');
+            image.style.display = 'block';
+            image.style.opacity = '1';
         }, 2000); // 2-second delay
     </script>
 </body>
